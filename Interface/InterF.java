@@ -1,3 +1,5 @@
+package Interface;
+
 
 interface i1 {
     int x = 6; // public static final by default
