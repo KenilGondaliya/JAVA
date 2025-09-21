@@ -31,6 +31,6 @@ class Demo2 extends Demo1 {
 class Abs {
     public static void main(String[] args) {
         Demo2 d1 = new Demo2();
-        // d1.f3();
+        d1.f3();
     }
 }
