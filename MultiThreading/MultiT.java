@@ -7,7 +7,7 @@ class Process1 implements Runnable {
         for (int i = 1; i <= 10; i++) {
             System.out.println("Process 1: " + i);
         }
-    }
+    } 
 }
 
 class Process2 implements Runnable {
