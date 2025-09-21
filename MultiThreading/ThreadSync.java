@@ -32,6 +32,7 @@ class Customer implements Runnable {
         Scanner s1 = new Scanner(System.in);
         System.out.println("Enter withdrawal amount: ");
         int amt = s1.nextInt();
+        s1.close();
 
         if (x1.isSufficientBalance(amt)) {
             x1.withdraw(amt);
