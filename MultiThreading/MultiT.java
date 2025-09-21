@@ -1,3 +1,5 @@
+// first way to create thread by implementing Runnable interface
+
 class Process1 implements Runnable {
 
     public void run() {
