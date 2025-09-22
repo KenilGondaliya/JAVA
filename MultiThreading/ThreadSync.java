@@ -15,30 +15,34 @@ class Account {
         }
     }
 
-    void withdraw(int withdrawalAmount) {
+    void withdraw(int withdrawalAmount, String name) {
         balance = balance - withdrawalAmount;
-        System.out.println("Balance after withdrawal: " + balance);
+        System.out.println(name + " Balance after withdrawal: " + balance);
     }
 }
 
 class Customer implements Runnable {
     Account x1;
+    String name;
 
-    Customer(Account j1) {
+    Customer(Account j1, String name1) {
         x1 = j1;
+        name = name1;
     }
 
     public void run() {
         Scanner s1 = new Scanner(System.in);
-        System.out.println("Enter withdrawal amount: ");
-        int amt = s1.nextInt();
-        s1.close();
+        synchronized (x1) {
 
-        if (x1.isSufficientBalance(amt)) {
-            x1.withdraw(amt);
-            System.out.println("Transaction Successful");
-        } else {
-            System.out.println("Insufficient Balance");
+            System.out.println("Enter withdrawal amount for " + name + ":");
+            int amt = s1.nextInt();
+
+            if (x1.isSufficientBalance(amt)) {
+                x1.withdraw(amt, name);
+                System.out.println("Transaction Successful");
+            } else {
+                System.out.println("Insufficient Balance");
+            }
         }
     }
 }
@@ -46,8 +50,8 @@ class Customer implements Runnable {
 public class ThreadSync {
     public static void main(String[] args) {
         Account acc = new Account(5000);
-        Customer c1 = new Customer(acc);
-        Customer c2 = new Customer(acc);
+        Customer c1 = new Customer(acc, "Kenil");
+        Customer c2 = new Customer(acc, "Jay");
 
         Thread t1 = new Thread(c1);
         Thread t2 = new Thread(c2);
