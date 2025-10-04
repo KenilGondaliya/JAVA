@@ -11,7 +11,7 @@ class Account {
     }
 
     public boolean isSufficientBalance(int wb) {
-        if (bal < wb) {
+        if (bal > wb) {
 
             return true;
         } else {
@@ -20,7 +20,7 @@ class Account {
     }
 
     public void withdraw(int wb) {
-        bal = -wb;
+        bal = bal - wb;
         System.out.println("Withdrawn amount: " + wb);
         System.out.println("Current Balance: " + bal);
         System.out.println("Withrawal Successful");
@@ -38,15 +38,18 @@ class Customer implements Runnable {
     }
 
     public void run() {
-        Scanner s1 = new Scanner(System.in);
-        System.out.println(name + " Enter the amount to withdraw: ");
-        int amt = s1.nextInt();
+        synchronized (h1) {
+            Scanner s1 = new Scanner(System.in);
+            System.out.println(name + " Enter the amount to withdraw: ");
+            int amt = s1.nextInt();
 
-        if (isSufficientBalance(amt)) {
+            if (h1.isSufficientBalance(amt)) {
 
-            h1.withdraw(amt);
-        } else {
-            System.out.println("Insufficient Balance");
+                System.out.println(name+"Collect your money");
+                h1.withdraw(amt);
+            } else {
+                System.out.println(name+"Insufficient Balance");
+            }
         }
     }
 }
